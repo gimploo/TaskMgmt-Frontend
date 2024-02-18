@@ -1,0 +1,66 @@
+<div>
+    <form class='signup-container' [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <h1>Signup</h1>
+        <hr >
+        <div class="signup-row">
+            <label class='signup-row-label' for="email"> Email:</label>
+            <input type="text" formControlName="email">
+            <div *ngIf="signupForm.get('email')?.hasError('required')">
+                <label class="warning-text">* Email is required.</label>
+            </div>
+            <div *ngIf="signupForm.get('email')?.hasError('email')">
+                <label class="warning-text">* Invalid email format</label>
+            </div>
+        </div>
+
+        <div class="signup-row">
+            <label class='signup-row-label' for="password"> Password:</label>
+            <input type="password" formControlName="password">
+            <div *ngIf="signupForm.get('password')?.hasError('required')">
+                <label class="warning-text">* Password required.</label>
+            </div>
+            <div *ngIf="signupForm.get('password')?.hasError('minLength')">
+                <label class="warning-text">* Minimum length is (3 characters)</label>
+            </div>
+            <div *ngIf="signupForm.get('password')?.hasError('maxLength')">
+                <label class="warning-text">* Maximum length is (20 characters)</label>
+            </div>
+        </div>
+
+        <div class="signup-row">
+            <label class='signup-row-label' for="name"> Name:</label>
+            <input type="text" formControlName="name">
+            <div *ngIf="signupForm.get('name')?.hasError('required')">
+                <label class="warning-text">* Name is required.</label>
+            </div>
+            <div *ngIf="signupForm.get('name')?.hasError('minLength')">
+                <label class="warning-text">* Minimum length is (3 characters)</label>
+            </div>
+            <div *ngIf="signupForm.get('name')?.hasError('maxLength')">
+                <label class="warning-text">* Maximum length is (20 characters)</label>
+            </div>
+        </div>
+
+        <div class="signup-row">
+            <label class='signup-row-label' for="groupName"> Group name:</label>
+            <input type="text" formControlName="groupName">
+            <div *ngIf="signupForm.get('groupName')?.hasError('required')">
+                <label class="warning-text">* Group name is required.</label>
+            </div>
+            <div *ngIf="signupForm.get('groupName')?.hasError('minLength')">
+                <label class="warning-text">* Minimum length is (3 characters)</label>
+            </div>
+            <div *ngIf="signupForm.get('groupName')?.hasError('maxLength')">
+                <label class="warning-text">* Maximum length is (20 characters)</label>
+            </div>
+        </div>
+
+        <div class="signup-row">
+            <label class='signup-row-label' for="referralCode"> Referral Code:</label>
+            <input type="text" formControlName="referralCode">
+        </div>
+
+        <input [disabled]="signupForm.invalid" class='signup-button' value='Signup' type="submit"> 
+        <input routerLink="/login" class='signup-button' value='Login' type="button"> 
+    </form>
+</div>

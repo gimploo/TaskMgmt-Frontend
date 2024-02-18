@@ -1,0 +1,67 @@
+<div class="groups-container">
+    <h1 class="groups-heading">Groups</h1>
+    <hr class="groups-hr">
+    <table class="groups-table">
+        <th class="groups-column-item">Group Id</th>
+        <th class="groups-column-item">Group Name</th>
+        <tr *ngFor="let group of groups">
+            <td class="groups-row-item">{{group.groupId}}</td>
+            <td class="groups-row-item">{{group.groupName}}</td>
+        </tr>
+    </table>
+</div>
+
+<div class="enter-group-prompt-container">
+    <label for="groupIdInput">
+        Enter a group to list projects of 
+    </label>
+    <select class='group-options' [(ngModel)]="groupIdInput" (ngModelChange)="onGroupIdInputChange($event)">
+        <option *ngFor="let group of groups" [value]="group.groupId"> 
+            {{group.groupId}}
+        </option>
+    </select>
+</div>
+
+<div>
+    <div class="project-container">
+        <h1 class="project-heading"> Projects </h1> 
+    </div>
+    <div class="project-empty-prompt" *ngIf="!projectsExist">
+        <p> * No projects</p>
+    </div>
+    <table class="groups-table" *ngIf="projectsExist">
+        <th class="groups-column-item">Project Id</th>
+        <th class="groups-column-item">Project Name</th>
+        <th class="groups-column-item">Project Desc</th>
+        <th class="groups-column-item">Owner Id</th>
+    <tr *ngFor="let project of projects">
+        <td class="groups-row-item">{{project.projectId}}</td>
+        <td class="groups-row-item">{{project.projectName}}</td>
+        <td class="groups-row-item">{{project.projectDescription}}</td>
+        <td class="groups-row-item">{{project.ownerId}}</td>
+    </tr>
+    </table>
+</div>
+
+<form class='add-project-container' [formGroup]="addProjForm"  (ngSubmit)="addProject()">
+    <h3>Add Project</h3>
+    <div>
+        <label for="proj-name">Project Name</label>
+        <input type="text" name="proj-name" formControlName="projectName">
+        <div *ngIf="addProjForm.get('projectName')?.hasError('required')">
+            <label class="warning-text">* Name is required.</label>
+        </div>
+    </div>
+
+    <div>
+        <label for="proj-desc">Project Desc</label>
+        <input type="text" name="proj-desc" formControlName="projectDesc">
+        <div *ngIf="addProjForm.get('projectDesc')?.hasError('required')">
+            <label class="warning-text">* Description is required.</label>
+        </div>
+    </div>
+    <input class='add-project-submit' type="submit" value="Enter" >
+</form>
+
+<button class='logout-button' (click)="OnLogout()">Logout</button>
+

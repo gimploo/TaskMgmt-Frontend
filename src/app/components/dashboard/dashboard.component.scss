@@ -1,0 +1,96 @@
+
+.groups {
+    &-container {
+        width: 250px;
+        border-style: dashed;
+        padding: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+    }
+
+    &-heading {
+        margin-bottom: 10px;
+    }
+    &-column-item {
+        border-style: ridge;
+    }
+
+    &-hr {
+        margin-bottom: 10px;
+    }
+
+    &-table {
+        width: full;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        border-style: ridge;
+        margin-top: 10px;
+    }
+}
+
+.enter-group-prompt-container {
+    margin-top: 40px;
+    text-align: center;
+    font-size: larger;
+    display: flex;
+    flex-direction: column;
+}
+
+.group-options {
+    width: 35px;
+    height: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.project-heading {
+    margin-top: 30px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.project-empty-prompt {
+    text-align: center;
+    padding: 10px;
+}
+
+.add-project-container {
+    margin-top: 30px;
+    width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: gainsboro;
+    padding: 20px;
+}
+
+.warning-text {
+    color: red;
+}
+
+.add-project-submit {
+    margin-top: 10px;
+    width: 90px;
+    height: 30px;
+    border-radius: 10px;
+}
+
+.logout-button {
+    position: fixed;
+    right: 0;
+    top: 0;
+    margin: 50px;
+    width: 80px;
+    height: 40px;
+    background-color: lightcoral;
+    border-radius: 5px;
+    color: whitesmoke;
+    border-width: 1px;
+
+    &:hover {
+        background-color: red;
+    }
+
+}

@@ -1,0 +1,31 @@
+
+<div>
+    <form class='login-container' [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <h1>Login</h1>
+        <hr >
+        <div class="login-row">
+            <label class='login-row-label' for="email"> Email:</label>
+            <input type="text" formControlName="email">
+            <div *ngIf="loginForm.get('email')?.hasError('required')">
+                <label class="warning-text">* Email is required.</label>
+            </div>
+            <div *ngIf="loginForm.get('email')?.hasError('email')">
+                <label class="warning-text">* Invalid email format</label>
+            </div>
+        </div>
+
+        <div class="login-row">
+            <label class='login-row-label' for="password"> Password:</label>
+            <input type="password" formControlName="password">
+            <div *ngIf="loginForm.get('password')?.hasError('required')">
+                <label class="warning-text">* Password required.</label>
+            </div>
+            <div *ngIf="loginForm.get('password')?.hasError('minLength')">
+                <label class="warning-text">* Minimum length is (8 characters)</label>
+            </div>
+        </div>
+        <input [disabled]="loginForm.invalid" class='login-button' value='Login' type="submit"> 
+        <input routerLink="/signup" class='signup-button' value='Signup' type="button"> 
+    </form>
+</div>
+
