@@ -31,6 +31,7 @@ export class DashboardComponent implements OnInit{
   groupIdInput!: number;
   
   addProjForm!: FormGroup;
+  addGroupForm!: FormGroup;
   projectsExist: boolean = false;
 
   constructor(
@@ -45,6 +46,10 @@ export class DashboardComponent implements OnInit{
       projectName: ['', Validators.required],
       projectDesc: ['', Validators.required],
     });
+
+    this.addGroupForm = this.fb.group({
+      groupName: ['', Validators.required]
+    })
 
     this.apiService.get<GroupInterface[]>('/groups').subscribe({
       next: (data) => {
@@ -76,6 +81,26 @@ export class DashboardComponent implements OnInit{
         this.projectsExist = false;
       }
     })
+  }
+
+  public addGroup()
+  {
+    if (!this.addGroupForm.valid) return;
+
+    const newGroup = {
+      "groupName": this.addGroupForm.get('groupName')!.value
+    };
+
+    this.apiService.post<void>('/groups/', newGroup).subscribe({
+      next: (data: any) => {
+        window.alert(`Successfully Added New Group ${newGroup.groupName}`);
+      },
+      error: (err) => {
+        window.alert(`Error while adding group ${newGroup.groupName} := ${err.error}`);
+      }
+    });
+
+    this.addGroupForm.reset();
   }
 
   public addProject() : void

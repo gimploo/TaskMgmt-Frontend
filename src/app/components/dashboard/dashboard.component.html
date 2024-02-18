@@ -11,6 +11,18 @@
     </table>
 </div>
 
+<form class='add-project-container' [formGroup]="addGroupForm"  (ngSubmit)="addGroup()">
+    <h3>Add Group</h3>
+    <div>
+        <label for="proj-name">Group Name</label>
+        <input type="text" name="proj-name" formControlName="groupName">
+        <div *ngIf="addGroupForm.get('projectName')?.hasError('required')">
+            <label class="warning-text">* Name is required.</label>
+        </div>
+    </div>
+    <input class='add-project-submit' type="submit" value="Enter" >
+</form>
+
 <div class="enter-group-prompt-container">
     <label for="groupIdInput">
         Enter a group to list projects of 
@@ -27,7 +39,7 @@
         <h1 class="project-heading"> Projects </h1> 
     </div>
     <div class="project-empty-prompt" *ngIf="!projectsExist">
-        <p> * No projects</p>
+        <p> * Select a group!</p>
     </div>
     <table class="groups-table" *ngIf="projectsExist">
         <th class="groups-column-item">Project Id</th>
@@ -39,6 +51,11 @@
         <td class="groups-row-item">{{project.projectName}}</td>
         <td class="groups-row-item">{{project.projectDescription}}</td>
         <td class="groups-row-item">{{project.ownerId}}</td>
+    </tr>
+    <tr *ngIf="!projects.length">
+        <label style="text-align: center;">
+            * No projects listed
+        </label>
     </tr>
     </table>
 </div>
@@ -62,3 +79,4 @@
     </div>
     <input class='add-project-submit' type="submit" value="Enter" >
 </form>
+
