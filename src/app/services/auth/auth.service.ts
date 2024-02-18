@@ -1,21 +1,28 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, InjectionToken, Injector, OnInit } from '@angular/core';
+import { Injectable, InjectionToken, Injector, OnDestroy, OnInit, signal } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ApiService } from '../api/api.service';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { TOKEN_NAME } from './auth.token';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements OnDestroy {
 
   TOKEN_NAME!: string;
 
   token: string | null = null;
 
-  public isAuthenticated: boolean = false;
+  public isAuthenticated = 
+    new BehaviorSubject<boolean>(false);
+  
+  private _setAuthenticated(flag : boolean) : void
+  {
+    console.log("flag is set to ", flag);
+    this.isAuthenticated.next(flag);
+  }
 
   constructor(
     private api: ApiService, 
@@ -25,12 +32,11 @@ export class AuthService {
   ) {
 
     this.TOKEN_NAME = this.inject.get(TOKEN_NAME);
-    console.log("Name of the token", this.TOKEN_NAME);
     
     const token = localStorage.getItem(this.TOKEN_NAME);
     if (token != null) {
       this.token = token;
-      this.isAuthenticated = true;
+      this._setAuthenticated(true);
     }
 
   }
@@ -65,8 +71,7 @@ export class AuthService {
   public logout() : void
   {
     localStorage.removeItem(this.TOKEN_NAME);
-    this.isAuthenticated = false;
-    this.router.navigate(['/login']);
+    this._setAuthenticated(false);
   }
 
   public async signup(data: FormGroup) : Promise<boolean>
@@ -101,7 +106,11 @@ export class AuthService {
   {
     localStorage.setItem(this.TOKEN_NAME, data);
     this.token = data;
-    this.isAuthenticated = true;
+    this._setAuthenticated(true);
   }  
+
+  public ngOnDestroy(): void {
+    this.isAuthenticated.unsubscribe();
+  }
 
 }

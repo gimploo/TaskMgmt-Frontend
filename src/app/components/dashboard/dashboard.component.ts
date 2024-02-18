@@ -39,11 +39,6 @@ export class DashboardComponent implements OnInit{
     private authService: AuthService, 
     private apiService: ApiService){}
 
-  public OnLogout() : void
-  {
-    this.authService.logout();  
-  }
-
   public ngOnInit()
   {
     this.addProjForm = this.fb.group({

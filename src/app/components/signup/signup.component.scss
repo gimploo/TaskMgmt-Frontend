@@ -23,14 +23,20 @@ hr {
     width: 80px;
     height: 30px;
     border-radius: 8px;
+    margin-left: 8px;
 }
 .signup-button {
     width: 80px;
     height: 30px;
     border-radius: 8px;
-    margin-left: 8px;
 }
 
 .warning-text {
     color: rgb(196, 60, 42);
+}
+
+.signup-option {
+    width: 200px;
+    font-size: light; 
+    margin-left: 10px;
 }

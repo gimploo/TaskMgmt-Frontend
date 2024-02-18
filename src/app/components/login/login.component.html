@@ -24,8 +24,11 @@
                 <label class="warning-text">* Minimum length is (8 characters)</label>
             </div>
         </div>
-        <input [disabled]="loginForm.invalid" class='login-button' value='Login' type="submit"> 
-        <input routerLink="/signup" class='signup-button' value='Signup' type="button"> 
+        <div class="login-row">
+            <input [disabled]="loginForm.invalid" class='login-button' value='Login' type="submit">
+            <label class="login-option">or</label>
+            <input routerLink="/signup" class='signup-button' value='Signup' type="button"> 
+        </div>
     </form>
 </div>
 
