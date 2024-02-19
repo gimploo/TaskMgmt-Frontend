@@ -9,42 +9,40 @@ import { TOKEN_NAME } from './auth.token';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService implements OnDestroy {
+export class AuthService implements OnInit {
 
   TOKEN_NAME!: string;
 
   token: string | null = null;
 
-  public isAuthenticated = 
-    new BehaviorSubject<boolean>(false);
-  
-  private _setAuthenticated(flag : boolean) : void
+  public isAuthenticated : BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+  private _setAuthenticated(flag : boolean)
   {
-    console.log("flag is set to ", flag);
     this.isAuthenticated.next(flag);
   }
 
   constructor(
     private api: ApiService, 
     private httpClient: HttpClient,
-    private router: Router,
     private inject: Injector
   ) {
-
+    console.log("Auth service constructor inside");
     this.TOKEN_NAME = this.inject.get(TOKEN_NAME);
-    
     const token = localStorage.getItem(this.TOKEN_NAME);
     if (token != null) {
-      this.token = token;
+      console.log("Auth service token found");
       this._setAuthenticated(true);
     }
+  }
 
+  public ngOnInit(): void 
+  {
   }
 
   async login(data: FormGroup): Promise<boolean>
   {
     return new Promise<boolean>((resolve, reject) => {
-
       this.httpClient.post(
         `${this.api.API_URL}/login`,
         {
@@ -57,11 +55,12 @@ export class AuthService implements OnDestroy {
       ).subscribe({
         next: (data: any) => {
           this._setToken(data);
+          console.log("Auth service user logged in");
           resolve(true);
         },
         error: (err) => {
-          window.alert(err);
-          reject(false);
+          window.alert(err.error);
+          resolve(false);
         }
       });
 
@@ -90,27 +89,24 @@ export class AuthService implements OnDestroy {
         },
         { responseType: "text" }
         ).subscribe({
-          next: (data : any) => {
-            this._setToken(data);
+          next: async (data : any) => {
+           this._setToken(data);
+            console.log("Auth service user signed up");
             resolve(true);
           },
           error: (err) => {
             window.alert(err.error)
-            reject(false);
+            resolve(true);
           }
         });
     })
   }
 
-  private async _setToken(data: string) 
+  private _setToken(data: string) 
   {
     localStorage.setItem(this.TOKEN_NAME, data);
     this.token = data;
     this._setAuthenticated(true);
   }  
-
-  public ngOnDestroy(): void {
-    this.isAuthenticated.unsubscribe();
-  }
 
 }

@@ -15,22 +15,18 @@ import { Subscription } from 'rxjs';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
-export class NavbarComponent implements OnDestroy {
+export class NavbarComponent {
 
   public isAuth!: boolean;
-  authsub: Subscription;
 
   constructor(
     private cdr: ChangeDetectorRef,
     private router: Router,
     private authService: AuthService) 
   {
-      this.authsub = this.authService.isAuthenticated.subscribe(
-        (value : boolean) => {
-          this.isAuth = value;
-          this.cdr.detectChanges();
-        }
-      )
+    authService.isAuthenticated.subscribe((value) => {
+      this.isAuth = value;
+    });
   }
 
   public logout() : void {
@@ -38,10 +34,5 @@ export class NavbarComponent implements OnDestroy {
     this.router.navigate(['/login']);
   }
 
-
-  ngOnDestroy()
-  {
-    this.authsub.unsubscribe();
-  }
 
 }

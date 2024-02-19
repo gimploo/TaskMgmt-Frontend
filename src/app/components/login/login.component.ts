@@ -17,7 +17,6 @@ import { NavbarComponent } from '../navbar/navbar.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [AuthService],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })

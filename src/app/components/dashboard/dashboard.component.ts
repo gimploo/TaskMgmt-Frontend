@@ -16,10 +16,6 @@ import { group } from '@angular/animations';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [
-    ApiService,
-    AuthService
-  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
