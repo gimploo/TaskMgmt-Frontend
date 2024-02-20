@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { Router, RouterLink } from '@angular/router';
 import { ApiService } from '../../services/api/api.service';
 import { AuthService } from '../../services/auth/auth.service';
+import { ToasterService } from '../../services/toaster/toaster.service';
 
 @Component({
   selector: 'app-signup',
@@ -24,7 +25,8 @@ export class SignupComponent implements OnInit {
   constructor(
     private fb: FormBuilder, 
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private toaster: ToasterService
   ) {}
 
   public ngOnInit(): void {
@@ -47,8 +49,6 @@ export class SignupComponent implements OnInit {
           this.signupForm.reset();
           return;
         }
-
-        window.alert("Signup successfull");
         this.router.navigate(['/dashboard']);
     })
   }

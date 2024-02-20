@@ -24,8 +24,8 @@ export class NavbarComponent {
     private router: Router,
     private authService: AuthService) 
   {
-    authService.isAuthenticated.subscribe((value) => {
-      this.isAuth = value;
+    authService.isAuthenticatedSubject.subscribe((value) => {
+      this.isAuth = value
     });
   }
 

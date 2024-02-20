@@ -1,0 +1,44 @@
+
+.add-project-container {
+    margin-top: 30px;
+    width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: gainsboro;
+    padding: 20px;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+
+}
+
+.warning-text {
+    color: red;
+}
+
+.add-project-submit {
+    margin-top: 10px;
+    width: 90px;
+    height: 30px;
+    border-radius: 10px;
+}
+
+.close-button {
+    border: none;
+    background-color: inherit;
+    color: red;
+    font-size: large;
+
+    &:hover {
+        color: lightcoral;
+    }
+}
+
+
+.add-project-heading {
+    display: flex;
+    justify-content: space-between;
+}

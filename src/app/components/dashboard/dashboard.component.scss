@@ -1,23 +1,32 @@
 
 .groups {
     &-container {
-        width: 250px;
+        height: 500px;
+        width: 300px;
         border-style: dashed;
         padding: 10px;
         margin-left: auto;
         margin-right: auto;
         margin-top: 10px;
+        overflow-y: scroll;
     }
 
     &-heading {
         margin-bottom: 10px;
     }
+
+    &-toprow {
+        display: flex;
+        justify-content: space-between;
+    }
+
     &-column-item {
         border-style: ridge;
     }
 
     &-hr {
-        margin-bottom: 10px;
+        margin-top: 10px;
+        margin-bottom: 20px;
     }
 
     &-table {
@@ -45,52 +54,53 @@
     margin-right: auto;
 }
 
-.project-heading {
-    margin-top: 30px;
-    text-align: center;
+.project-container {
+    height: 50px;
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
     margin-left: auto;
     margin-right: auto;
+
 }
+
+.add-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    &:hover {
+        background-color: #45a049; 
+    }
+}
+
+// .project-heading {
+//     margin-top: 30px;
+//     text-align: center;
+//     margin-left: auto;
+//     margin-right: auto;
+// }
 
 .project-empty-prompt {
     text-align: center;
     padding: 10px;
 }
 
-.add-project-container {
-    margin-top: 30px;
-    width: 250px;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: gainsboro;
-    padding: 20px;
-}
-
 .warning-text {
     color: red;
 }
 
-.add-project-submit {
-    margin-top: 10px;
-    width: 90px;
-    height: 30px;
-    border-radius: 10px;
-}
-
-.logout-button {
+.modal-background {
     position: fixed;
-    right: 0;
     top: 0;
-    margin: 50px;
-    width: 80px;
-    height: 40px;
-    background-color: lightcoral;
-    border-radius: 5px;
-    color: whitesmoke;
-    border-width: 1px;
-
-    &:hover {
-        background-color: red;
-    }
-
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.648);
 }

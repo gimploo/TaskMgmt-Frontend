@@ -5,6 +5,7 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { ToasterService } from '../../services/toaster/toaster.service';
 
 @Component({
   selector: 'app-login',
@@ -29,6 +30,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder, 
     private auth: AuthService,
     private router: Router,
+    private toaster: ToasterService
     ){}
 
   public ngOnInit(): void {
@@ -47,7 +49,6 @@ export class LoginComponent implements OnInit {
           this.loginForm.reset();
           return;
         }
-        window.alert("Login successfull");
         this.router.navigate(['/dashboard']);
     })
   }

@@ -6,8 +6,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ApiService } from './services/api/api.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/auth/auth.service';
-import { AuthGuard } from './services/auth/auth.guard';
+import { AuthGuard } from './guards/auth.guard';
 import { BrowserModule } from '@angular/platform-browser';
+import { ToasterService } from './services/toaster/toaster.service';
+import { ToasterComponent } from './components/toaster/toaster.component';
 
 @Component({
   selector: 'app-root',
@@ -19,8 +21,9 @@ import { BrowserModule } from '@angular/platform-browser';
     RouterModule,
 
     NavbarComponent,
+    ToasterComponent,
   ],
-  providers: [
+  providers:[ 
     AuthService,
     ApiService,
   ],

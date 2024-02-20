@@ -1,0 +1,28 @@
+.toaster {
+    &-container {
+
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 400px;
+        border-radius: 10px;
+        padding: 10px;
+        background-color: lightblue;
+        display: flex;
+        z-index: 1;
+    }
+
+    &-title {
+        color: aliceblue;
+        font-size: 20px;
+        margin-left: 10px;
+    }
+
+    &-message {
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-left: 20px;
+        font-size: 15px;
+        color: rgb(83, 71, 71);
+    }
+}

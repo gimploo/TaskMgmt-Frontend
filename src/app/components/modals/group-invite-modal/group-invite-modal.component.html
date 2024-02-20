@@ -1,0 +1,16 @@
+<div class='modal-container' *ngIf="isHidden">
+    <div class="modal-toprow">
+        <h1> Send an invite </h1>
+        <button (click)="closeModal()"> X </button>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="modal-row">
+            <label > Email </label>
+            <input formControlName="email" type="text" >
+        </div>
+        <div class="warning-text" *ngIf="form.get('email')?.hasError('required')">
+            <label >* Email is required.</label>
+        </div>
+        <input class='send-button' type="submit" value="Send"/>
+    </form>
+</div>

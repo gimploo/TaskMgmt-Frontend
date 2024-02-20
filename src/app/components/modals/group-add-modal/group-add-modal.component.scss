@@ -1,0 +1,30 @@
+
+.add-project-container {
+    width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: gainsboro;
+    padding: 20px;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.add-project-heading {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.warning-text {
+    color: red;
+}
+
+.add-project-submit {
+    margin-top: 10px;
+    width: 90px;
+    height: 30px;
+    border-radius: 10px;
+}

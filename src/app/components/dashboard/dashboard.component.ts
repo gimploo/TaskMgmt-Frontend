@@ -6,6 +6,12 @@ import { Form, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validat
 import { ApiService } from '../../services/api/api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { group } from '@angular/animations';
+import { concatMapTo } from 'rxjs';
+import { DashboardService } from '../../services/dashboard/dashboard.service';
+import { GroupInviteModalComponent } from '../modals/group-invite-modal/group-invite-modal.component';
+import { GroupAddModalComponent } from '../modals/group-add-modal/group-add-modal.component';
+import { ProjectAddModalComponent } from '../modals/project-add-modal/project-add-modal.component';
+import { ToasterService } from '../../services/toaster/toaster.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,7 +20,15 @@ import { group } from '@angular/animations';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+
+    // Modals
+    GroupInviteModalComponent,
+    GroupAddModalComponent,
+    ProjectAddModalComponent
+  ],
+  providers: [
+    DashboardService
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
@@ -25,41 +39,36 @@ export class DashboardComponent implements OnInit{
   projects!: ProjectInterface[];
 
   groupIdInput!: number;
-  
-  addProjForm!: FormGroup;
-  addGroupForm!: FormGroup;
   projectsExist: boolean = false;
 
+  isModalActive: boolean = false;
+
   constructor(
-    private router: Router, 
+    private dashService: DashboardService,
     private fb: FormBuilder,
-    private authService: AuthService, 
+    private toaster: ToasterService,
     private apiService: ApiService){}
 
   public ngOnInit()
   {
-    this.addProjForm = this.fb.group({
-      projectName: ['', Validators.required],
-      projectDesc: ['', Validators.required],
-    });
-
-    this.addGroupForm = this.fb.group({
-      groupName: ['', Validators.required]
-    })
-
     this.apiService.get<GroupInterface[]>('/groups').subscribe({
       next: (data) => {
-        console.log(data);
         this.groups = data;
       },
       error: (err) => {
-        console.log(err);
+        this.toaster.error(err);
       }
     })
+
+    this.dashService.backgroundModalVisibility.subscribe((data: boolean) => {
+      this.isModalActive = data;
+    })
+
   }
 
   public onGroupIdInputChange(value: number) : void
   {
+    this.dashService.setGroupId(value);
     this.fetchProjects(value);
   }
 
@@ -74,61 +83,29 @@ export class DashboardComponent implements OnInit{
       },
       error: (err) => {
         console.log(err);
+        this.toaster.error(err.error);
         this.projectsExist = false;
       }
     })
   }
 
-  public addGroup()
+  public onInvite(groupId: number) : void
   {
-    if (!this.addGroupForm.valid) return;
-
-    const newGroup = {
-      "groupName": this.addGroupForm.get('groupName')!.value
-    };
-
-    this.apiService.post<void>('/groups/', newGroup).subscribe({
-      next: (data: any) => {
-        window.alert(`Successfully Added New Group ${newGroup.groupName}`);
-      },
-      error: (err) => {
-        window.alert(`Error while adding group ${newGroup.groupName} := ${err.error}`);
-      }
-    });
-
-    this.addGroupForm.reset();
+    this.dashService.toggleInviteGroupModalVisibility(true);
+    this.dashService.setGroupId(groupId);
   }
 
-  public addProject() : void
+  public onAddGroup() : void
   {
-    if (!this.addProjForm.valid) return;
-
-    const project : ProjectAddInterface = {
-      projectName: this.addProjForm.get('projectName')!.value,
-      projectDescription: this.addProjForm.get('projectDesc')!.value,
-    }
-
-    this.apiService.post<void>(`/groups/${this.groupIdInput}/projects`, project).subscribe({
-      next: () => {
-        window.alert(`Successfully Added New Project ${project.projectName}`);
-      },
-      error: (err) => {
-        window.alert(`Error while adding project ${project.projectName} := ${err.error}`);
-      }
-    })
-
-    this.fetchProjects(this.groupIdInput);
-
-    this.addProjForm.reset();
+    this.dashService.toggleAddGroupModalVisibility(true);
+  }
+  
+  public onAddProject() : void
+  {
+    this.dashService.toggleAddProjectModalVisibility(true);
   }
 
 }
-
-// "projectId": 2,
-//   "groupId": 10,
-//   "projectName": "string",
-//   "projectDescription": "string",
-//   "ownerId": 8
 
 interface GroupInterface {
   groupId: number,
@@ -141,9 +118,4 @@ interface ProjectInterface {
   projectName: string;
   projectDescription: string;
   ownerId: number;
-}
-
-interface ProjectAddInterface {
-  projectName: string,
-  projectDescription: string,
 }

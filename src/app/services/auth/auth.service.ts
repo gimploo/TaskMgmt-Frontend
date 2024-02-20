@@ -1,44 +1,46 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, InjectionToken, Injector, OnDestroy, OnInit, signal } from '@angular/core';
+import { Injectable, InjectionToken, Injector, OnDestroy, OnInit, inject, signal } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ApiService } from '../api/api.service';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { TOKEN_NAME } from './auth.token';
+import { ToasterService } from '../toaster/toaster.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService implements OnInit {
+export class AuthService {
 
   TOKEN_NAME!: string;
 
   token: string | null = null;
 
-  public isAuthenticated : BehaviorSubject<boolean> = new BehaviorSubject(false);
-
-  private _setAuthenticated(flag : boolean)
-  {
-    this.isAuthenticated.next(flag);
-  }
+  public isAuthenticatedSubject : BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(
     private api: ApiService, 
+    private toaster: ToasterService,
     private httpClient: HttpClient,
-    private inject: Injector
-  ) {
-    console.log("Auth service constructor inside");
-    this.TOKEN_NAME = this.inject.get(TOKEN_NAME);
+  ) 
+  {
+    this.TOKEN_NAME = inject(TOKEN_NAME);
     const token = localStorage.getItem(this.TOKEN_NAME);
     if (token != null) {
-      console.log("Auth service token found");
       this._setAuthenticated(true);
     }
   }
 
-  public ngOnInit(): void 
+  private _setAuthenticated(flag : boolean)
   {
+    this.isAuthenticatedSubject.next(flag);
   }
+
+  public isUserAuthenticated() : boolean
+  {
+    return (this.token === null);
+  }
+
 
   async login(data: FormGroup): Promise<boolean>
   {
@@ -55,11 +57,12 @@ export class AuthService implements OnInit {
       ).subscribe({
         next: (data: any) => {
           this._setToken(data);
-          console.log("Auth service user logged in");
+          this.toaster.success("Successfully logged in!");
           resolve(true);
         },
         error: (err) => {
-          window.alert(err.error);
+          console.log(err.error);
+          this.toaster.error(err.error);
           resolve(false);
         }
       });
@@ -90,12 +93,13 @@ export class AuthService implements OnInit {
         { responseType: "text" }
         ).subscribe({
           next: async (data : any) => {
-           this._setToken(data);
-            console.log("Auth service user signed up");
+            this._setToken(data);
+            this.toaster.success("Successfully signed in!");
             resolve(true);
           },
           error: (err) => {
-            window.alert(err.error)
+            console.log(err.error);
+            this.toaster.error(err.error);
             resolve(true);
           }
         });

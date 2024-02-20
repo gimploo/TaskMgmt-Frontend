@@ -1,0 +1,16 @@
+<div *ngIf="isHidden" >
+    <form class='add-project-container' [formGroup]="addGroupForm"  (ngSubmit)="addGroup()">
+        <div class="add-project-heading">
+            <h3>Add Group</h3>
+            <button (click)="closeModal()">X</button>
+        </div>
+        <div>
+            <label for="proj-name">Group Name</label>
+            <input type="text" name="proj-name" formControlName="groupName">
+            <div *ngIf="addGroupForm.get('projectName')?.hasError('required')">
+                <label class="warning-text">* Name is required.</label>
+            </div>
+        </div>
+        <input class='add-project-submit' type="submit" value="Enter" >
+    </form>
+</div>
