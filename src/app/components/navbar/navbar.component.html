@@ -1,11 +1,11 @@
 <ul *ngIf="!isAuth" class="navbar-container">
-    <li routerLink='dashboard' class="navbar-home">Dashboard</li>
-    <li routerLink="signup" class="navbar-signup">Signup</li>
-    <li routerLink="login" class="navbar-login">Login</li>
+    <li routerLink='dashboard' class="navbar-item">Dashboard</li>
+    <li routerLink="signup" class="navbar-item">Signup</li>
+    <li routerLink="login" class="navbar-item">Login</li>
 </ul>
 
 <ul *ngIf="isAuth" class="navbar-container">
-    <li routerLink='dashboard' class="navbar-home">Dashboard</li>
-    <li (click)="logout()" class="navbar-logout">Logout</li>
+    <li routerLink='dashboard' class="navbar-item">Dashboard</li>
+    <li (click)="logout()" class="navbar-item">Logout</li>
 </ul>
 

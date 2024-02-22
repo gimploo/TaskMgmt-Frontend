@@ -13,7 +13,7 @@ export class DashboardService {
   public addProjectModalVisibility : BehaviorSubject<boolean> = new BehaviorSubject(false);
 
 
-  private currentState!: DashboardState;
+  private currentState!: DashboardSharedMemory;
 
   constructor() 
   {
@@ -67,7 +67,7 @@ export class DashboardService {
 
 }
 
-interface DashboardState {
+interface DashboardSharedMemory {
   isReady: boolean;
   groupId: number;
   projectId: number;

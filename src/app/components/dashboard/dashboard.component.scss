@@ -1,14 +1,12 @@
 
 .groups {
     &-container {
-        height: 500px;
-        width: 300px;
-        border-style: dashed;
+        height: full;
+        width: 600px;
         padding: 10px;
         margin-left: auto;
         margin-right: auto;
         margin-top: 10px;
-        overflow-y: scroll;
     }
 
     &-heading {
@@ -30,7 +28,7 @@
     }
 
     &-table {
-        width: full;
+        width: 500px;
         margin-left: auto;
         margin-right: auto;
         text-align: center;

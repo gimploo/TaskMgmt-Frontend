@@ -7,7 +7,7 @@
         <div>
             <label for="proj-name">Group Name</label>
             <input type="text" name="proj-name" formControlName="groupName">
-            <div *ngIf="addGroupForm.get('projectName')?.hasError('required')">
+            <div *ngIf="addGroupForm.get('groupName')?.hasError('required')">
                 <label class="warning-text">* Name is required.</label>
             </div>
         </div>
