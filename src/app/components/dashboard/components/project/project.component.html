@@ -1,0 +1,24 @@
+<div class="project-container">
+    <div class="project-container-heading">
+        <h1 class="project-heading"> Projects </h1> 
+        <button class='add-button' (click)="onAddProject()">Add</button>
+    </div>
+    <hr class="project-hr">
+    <table class="groups-table" >
+        <th class="groups-column-item">Project Id</th>
+        <th class="groups-column-item">Project Name</th>
+        <th class="groups-column-item">Project Desc</th>
+        <th class="groups-column-item">Owner Id</th>
+    <tr *ngFor="let project of projects">
+        <td class="groups-row-item">{{project.projectId}}</td>
+        <td class="groups-row-item">{{project.projectName}}</td>
+        <td class="groups-row-item">{{project.projectDescription}}</td>
+        <td class="groups-row-item">{{project.ownerId}}</td>
+    </tr>
+    <tr *ngIf="!projects?.length">
+        <label style="text-align: center;">
+            * No projects listed
+        </label>
+    </tr>
+    </table>
+</div>

@@ -4,6 +4,8 @@ import { SignupComponent } from './components/signup/signup.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AuthGuard } from './guards/auth.guard';
 import { LoggedInGuard } from './guards/loggedin.guard';
+import { ProjectComponent } from './components/dashboard/components/project/project.component';
+import { GroupComponent } from './components/dashboard/components/group/group.component';
 
 export const routes: Routes = [
     {
@@ -24,6 +26,10 @@ export const routes: Routes = [
     {
         path: 'dashboard', 
         component: DashboardComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        children: [
+            {path: '', component: GroupComponent},
+            {path: ':groupId/projects', component: ProjectComponent}
+        ]
     },
 ];

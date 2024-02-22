@@ -21,6 +21,14 @@ export class ToasterService implements OnDestroy {
     });
   }
 
+  public unauthorized(message: string)
+  {
+    this.message.next({
+      type:"unauthorized",
+      content: message
+    });
+  }
+
   public error(message: string)
   {
     this.message.next({

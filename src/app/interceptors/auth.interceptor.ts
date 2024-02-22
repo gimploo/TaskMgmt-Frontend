@@ -12,6 +12,7 @@ import { ToasterService } from '../services/toaster/toaster.service';
 })
 export class authInterceptor implements HttpInterceptor {
   constructor(
+    private router: Router,
     private toasterService: ToasterService,
     private injector: Injector) {}
 
@@ -20,7 +21,8 @@ export class authInterceptor implements HttpInterceptor {
     const tokenName : string = this.injector.get(TOKEN_NAME);
     const isAuth: boolean = false;
 
-    if (!localStorage.getItem(tokenName)) return next.handle(request);
+    if (!localStorage.getItem(tokenName)) 
+      return next.handle(request);
 
     request = request.clone({ 
       headers: request.headers.set(
@@ -30,14 +32,13 @@ export class authInterceptor implements HttpInterceptor {
 
     return next.handle(request)
     .pipe(
-      tap((event) => {
-        if (event instanceof HttpResponse) {
-          // dk what to do here
-        }
-      }),
       catchError((error: HttpErrorResponse) => {
-        this.toasterService.error(error.error);
-        return throwError(() => error);
+          if (error.status === 401)
+          {
+            this.toasterService.unauthorized('Sorry, you are not authorized to access this resource');
+            this.router.navigate(['/dashboard']);
+          }
+          throw new Error("ouoiuoiu");
       })
     );
   }

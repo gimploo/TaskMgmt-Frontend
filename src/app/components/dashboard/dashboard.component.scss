@@ -37,6 +37,13 @@
     }
 }
 
+.project-hr {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left: 50px;
+    width: 600px;
+}
+
 .enter-group-prompt-container {
     margin-top: 40px;
     text-align: center;
@@ -54,11 +61,21 @@
 
 .project-container {
     height: 50px;
-    width: 300px;
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+
+}
+
+.project-container-heading {
+    height: 50px;
+    width: 600px;
     display: flex;
     justify-content: space-between;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 10px;
 
 }
 
@@ -77,13 +94,6 @@
         background-color: #45a049; 
     }
 }
-
-// .project-heading {
-//     margin-top: 30px;
-//     text-align: center;
-//     margin-left: auto;
-//     margin-right: auto;
-// }
 
 .project-empty-prompt {
     text-align: center;

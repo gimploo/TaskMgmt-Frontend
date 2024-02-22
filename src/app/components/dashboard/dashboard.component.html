@@ -1,61 +1,8 @@
-<div class="groups-container">
-    <div class="groups-toprow">
-        <h1 class="groups-heading">Groups</h1>
-        <button class='add-button' (click)="onAddGroup()"> Add </button>
-    </div>
-    <hr class="groups-hr">
-    <table class="groups-table">
-        <th class="groups-column-item">Group Id</th>
-        <th class="groups-column-item">Group Name</th>
-        <tr *ngFor="let group of groups">
-            <td class="groups-row-item">{{group.groupId}}</td>
-            <td class="groups-row-item">{{group.groupName}}</td>
-            <td class="groups-row-invite"><button (click)="onInvite(group.groupId)">Invite</button></td>
-        </tr>
-    </table>
-</div>
-
-<div class="enter-group-prompt-container">
-    <label for="groupIdInput">
-        Enter a group to list projects of 
-    </label>
-    <select class='group-options' [(ngModel)]="groupIdInput" (ngModelChange)="onGroupIdInputChange($event)">
-        <option *ngFor="let group of groups" [value]="group.groupId"> 
-            {{group.groupId}}
-        </option>
-    </select>
-</div>
-
-<div>
-    <div class="project-container">
-        <h1 class="project-heading"> Projects </h1> 
-        <button class='add-button' (click)="onAddProject()">Add</button>
-    </div>
-    <div class="project-empty-prompt" *ngIf="!projectsExist">
-        <p> * Select a group!</p>
-    </div>
-    <table class="groups-table" *ngIf="projectsExist">
-        <th class="groups-column-item">Project Id</th>
-        <th class="groups-column-item">Project Name</th>
-        <th class="groups-column-item">Project Desc</th>
-        <th class="groups-column-item">Owner Id</th>
-    <tr *ngFor="let project of projects">
-        <td class="groups-row-item">{{project.projectId}}</td>
-        <td class="groups-row-item">{{project.projectName}}</td>
-        <td class="groups-row-item">{{project.projectDescription}}</td>
-        <td class="groups-row-item">{{project.ownerId}}</td>
-    </tr>
-    <tr *ngIf="!projects.length">
-        <label style="text-align: center;">
-            * No projects listed
-        </label>
-    </tr>
-    </table>
-</div>
-
 
 <div *ngIf="isModalActive" class="modal-background">
     <app-group-invite-modal></app-group-invite-modal>
     <app-group-add-modal></app-group-add-modal>
     <app-project-add-modal></app-project-add-modal>
 </div>
+
+<router-outlet></router-outlet>

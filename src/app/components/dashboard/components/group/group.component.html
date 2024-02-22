@@ -1,0 +1,17 @@
+
+<div class="groups-container">
+    <div class="groups-toprow">
+        <h1 class="groups-heading">Groups</h1>
+        <button class='add-button' (click)="onAddGroup()"> Add </button>
+    </div>
+    <hr class="groups-hr">
+    <table class="groups-table">
+        <th class="groups-column-item">Group Id</th>
+        <th class="groups-column-item">Group Name</th>
+        <tr (click)='navigateToProject(group.groupId)' *ngFor="let group of groups">
+            <td class="groups-row-item">{{group.groupId}}</td>
+            <td class="groups-row-item">{{group.groupName}}</td>
+            <td class="groups-row-invite"><button (click)="onInvite($event, group.groupId)">Invite</button></td>
+        </tr>
+    </table>
+</div>

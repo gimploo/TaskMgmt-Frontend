@@ -47,8 +47,8 @@ export class ToasterComponent implements OnInit {
 
       case 'unauthorized':
         this.config.title = 'Unauthorized';
-        this.config.message = 'You are unauthorized, login / signup to access';
-        this.config.bgcolor = 'lightyellow';
+        this.config.message = data.content;
+        this.config.bgcolor = 'red';
         this._toggleVisibility();
       break;
 
